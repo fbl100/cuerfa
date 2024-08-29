@@ -1,3 +1,39 @@
+This is a CUDA port of the ERFA library, where all functions have been
+compiled as ``__device__`` functions, enabling them to run on NVIDIA GPUs.
+This version retains the essential routines for fundamental astronomy while
+leveraging the parallel processing power of CUDA. It is particularly suited
+for applications that require high-performance astronomical computations on
+GPU platforms.
+
+Quickstart
+----------
+
+To build the CUDA-enabled ERFA library, follow these steps:
+
+1. Ensure that CUDA is installed on your system and that the CUDA toolkit is
+   accessible.
+2. Clone this repository::
+
+   git clone https://github.com/fbl100/cuerfa.git
+
+3. Navigate to the directory::
+
+   cd cuerfa
+
+4. Build the library using CMake::
+
+   mkdir build
+   cd build
+   cmake ..
+   make
+   ctest
+
+5. The compiled library and test executables will be available in the
+   ``build`` directory.
+
+ERFA
+---------------------
+
 This is the source code repository for ERFA (Essential Routines for
 Fundamental Astronomy).  ERFA is a C library containing key algorithms for
 astronomy, and is based on the `SOFA library <http://www.iausofa.org/>`_ published by the International
@@ -34,14 +70,14 @@ Version information
 ERFA provides a few utility functions for accessing version information at
 runtime which are not a part of SOFA.  Specifically, these are the
 ``eraVersion``, ``eraVersion*``, and ``eraSofaVersion`` functions that are
-exposed in the ``erfaextra.h`` header.
+exposed in the ``erfaextra.cuh`` header.
 
 Runtime leap second modification
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ERFA provides the capability to modify at runtime the leap seconds assumed for
 various calculations. These are accessed via the ``eraGetLeapSeconds`` and
-``eraSetLeapSeconds`` functions that are exposed in the ``erfaextra.h`` header.
+``eraSetLeapSeconds`` functions that are exposed in the ``erfaextra.cuh`` header.
 This functionality is currently considered somewhat experimental, meaning an
 improved API might be available in the future, but the current API can also be
 counted on for the near future.
@@ -63,9 +99,9 @@ addressing localized bugs or similar smaller issues:
   + Functionally, there no differences except for the added ``eraVersion``,
     ``eraSofaVersion``, and leap second functions noted above.
   + The three new functions added in SOFA are added to ERFA as well.
-  + Like for SOFA, one now has to explicitly include ``erfam.h`` to use its
-    macros defining constants, etc. Including just ``erfa.h`` (or
-    ``erfaextra.h``) will no longer includes ``erfam.h`` implicitly.
+  + Like for SOFA, one now has to explicitly include ``erfam.cuh`` to use its
+    macros defining constants, etc. Including just ``erfa.cuh`` (or
+    ``erfaextra.cuh``) will no longer includes ``erfam.cuh`` implicitly.
 
 * ERFA 1.7.3 and SOFA "20210125_a"
 
@@ -158,7 +194,7 @@ Alternatively, if you wish to bundle the ERFA source code with a separate
 package, you can use the ``source_flattener.py`` script from the
 `erfa-fetch repository`_ to combine
 the ERFA source code into just two files: a ``erfa.c`` source file, and an
-``erfa.h`` include file.  You should run this script like this::
+``erfa.cuh`` include file.  You should run this script like this::
 
     cd /path/to/erfa-source-code
     python /path/to/erfa-fetch/source_flattener.py src -n erfa

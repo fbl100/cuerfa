@@ -141,8 +141,8 @@ Package version number
 Semantic versioning dictates how to change the version number according to
 changes to the API of the library. In the case of ERFA the API is:
 
-  * The public C macros defined in erfam.h
-  * The names, return types, number of arguments and types of the functions in erfa.h
+  * The public C macros defined in erfam.cuh
+  * The names, return types, number of arguments and types of the functions in erfa.cuh
 
 To update the package version, the release manager has to check the relevant
 information about the release, such as:
